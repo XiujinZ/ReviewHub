@@ -1,6 +1,7 @@
 package com.reviewhub.utils;
 
 import com.reviewhub.dto.UserDTO;
+import com.reviewhub.entity.User;
 
 public class UserHolder {
     private static final ThreadLocal<UserDTO> tl = new ThreadLocal<>();

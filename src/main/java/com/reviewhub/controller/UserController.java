@@ -3,9 +3,12 @@ package com.reviewhub.controller;
 
 import com.reviewhub.dto.LoginFormDTO;
 import com.reviewhub.dto.Result;
+import com.reviewhub.dto.UserDTO;
+import com.reviewhub.entity.User;
 import com.reviewhub.entity.UserInfo;
 import com.reviewhub.service.IUserInfoService;
 import com.reviewhub.service.IUserService;
+import com.reviewhub.utils.UserHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * 前端控制器
  * </p>
  *
- * @author 虎哥
+ * @author XiujinZ
  * @since 2021-12-22
  */
 @Slf4j
@@ -36,8 +39,8 @@ public class UserController {
      */
     @PostMapping("code")
     public Result sendCode(@RequestParam("phone") String phone, HttpSession session) {
-        // TODO 发送短信验证码并保存验证码
-        return Result.fail("功能未完成");
+        // 发送短信验证码并保存验证码
+        return userService.sendCode(phone, session);
     }
 
     /**
@@ -46,8 +49,8 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody LoginFormDTO loginForm, HttpSession session){
-        // TODO 实现登录功能
-        return Result.fail("功能未完成");
+        // 实现登录功能
+        return userService.login(loginForm, session);
     }
 
     /**
@@ -62,8 +65,9 @@ public class UserController {
 
     @GetMapping("/me")
     public Result me(){
-        // TODO 获取当前登录的用户并返回
-        return Result.fail("功能未完成");
+        // 获取当前登录的用户并返回
+        UserDTO user = UserHolder.getUser();
+        return Result.ok(user);
     }
 
     @GetMapping("/info/{id}")
